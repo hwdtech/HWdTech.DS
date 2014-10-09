@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace HWdTech.DS.Internals.Implementation.Tests
 {
-    [TestFixture]
+    [TestFixture(Category= "Internals")]
     public class IoCRegistrationTests
     {
         [Test]
