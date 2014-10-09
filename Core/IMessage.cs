@@ -2,5 +2,9 @@
 {
     public interface IMessage
     {
+        string Target
+        {
+            get;
+        }
     }
 }

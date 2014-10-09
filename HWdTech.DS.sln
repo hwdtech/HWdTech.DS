@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{65C022
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{3D3A1029-75D7-4F42-905B-8D81ECEB8520}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouterImpl", "RouterImpl\RouterImpl.csproj", "{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouterImplTests", "RouterImplTests\RouterImplTests.csproj", "{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,14 @@ Global
 		{3D3A1029-75D7-4F42-905B-8D81ECEB8520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D3A1029-75D7-4F42-905B-8D81ECEB8520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D3A1029-75D7-4F42-905B-8D81ECEB8520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AAC627DB-3B2A-46D9-82B4-0F12D104C005}</ProjectGuid>
+    <ProjectGuid>{0D140A15-D328-4ED3-B7C6-5B8126BEFC13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Internals</RootNamespace>
-    <AssemblyName>Internals</AssemblyName>
+    <RootNamespace>RouterImplTests</RootNamespace>
+    <AssemblyName>RouterImplTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,14 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRouter.cs" />
-    <Compile Include="IThreadPool.cs" />
+    <Compile Include="RouteMessagesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{3D3A1029-75D7-4F42-905B-8D81ECEB8520}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Internals\Internals.csproj">
+      <Project>{AAC627DB-3B2A-46D9-82B4-0F12D104C005}</Project>
+      <Name>Internals</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RouterImpl\RouterImpl.csproj">
+      <Project>{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}</Project>
+      <Name>RouterImpl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
