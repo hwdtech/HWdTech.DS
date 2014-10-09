@@ -6,21 +6,21 @@ using NUnit.Framework;
 
 namespace HWdTech.DS.Internals.Implementation.Tests
 {
-    [TestFixture(Category= "Internals")]
-    public class IoCRegistrationThreadPoolTests
+    [TestFixture(Category = "Internals")]
+    public class IoCRegistrationRouterTests
     {
         [Test]
-        public void ThreadPoolImplShouldBeRegisteredAsInterfaceIThreadPoolImplementationInAutofac()
+        public void RouterImplShouldBeRegisteredAsInterfaceRouterImplementationInAutofac()
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            Assembly assembly = Assembly.GetAssembly(typeof(ThreadPoolImpl));
+            Assembly assembly = Assembly.GetAssembly(typeof(RouterImpl));
 
             builder.RegisterAssemblyModules(assembly);
 
             var container = builder.Build();
 
-            container.Resolve<IThreadPool>();
+            container.Resolve<IRouter>();
         }
     }
 }

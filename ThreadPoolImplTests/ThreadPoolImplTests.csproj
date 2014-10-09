@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoCRegistrationTests.cs" />
-    <Compile Include="ThreadPoolTests.cs" />
+    <Compile Include="RunTasksTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
