@@ -11,33 +11,55 @@ namespace HWdTech.DS.Core
 
         public void Receive(IMessage message)
         {
-            bool taskNotQueued = true;
-            Interlocked.Increment(ref requests);
-            if (0 == Interlocked.Exchange(ref isHandler, 1))
+            bool ReceiveMessageFromMailboxTaskNotSchedulled = true;
+
+            AcceptRequest();
+            
+            if (CanHandleAMessage())
             {
                 Handle(message);
 
                 ReceiveMessagesFromMailbox();
 
-                Interlocked.Exchange(ref isHandler, 0);
+                FinishMessagesHandling();
 
-                if (queue.Count > 0)
-                {
-                    taskNotQueued = false;
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.ProcessQueue));
-                }
+                ReceiveMessageFromMailboxTaskNotSchedulled = !ScheduleReceviveMessagesFromMailboxToTheThreadPool();
             }
             else
             {
-                queue.Enqueue(message);
-            }
-            if (0 == Interlocked.Decrement(ref requests))
-            {
-                if (taskNotQueued && queue.Count > 0)
+                if (message != null)
                 {
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.ProcessQueue));
+                    queue.Enqueue(message);
                 }
             }
+
+            if (IsLastRequest())
+            {
+                if (ReceiveMessageFromMailboxTaskNotSchedulled)
+                {
+                    ScheduleReceviveMessagesFromMailboxToTheThreadPool();
+                }
+            }
+        }
+
+        private bool IsLastRequest()
+        {
+            return 0 == Interlocked.Decrement(ref requests);
+        }
+
+        private void AcceptRequest()
+        {
+            Interlocked.Increment(ref requests);
+        }
+
+        private void FinishMessagesHandling()
+        {
+            Interlocked.Exchange(ref isHandler, 0);
+        }
+
+        private bool CanHandleAMessage()
+        {
+            return 0 == Interlocked.Exchange(ref isHandler, 1);
         }
 
         private void ReceiveMessagesFromMailbox()
@@ -49,19 +71,22 @@ namespace HWdTech.DS.Core
             }
         }
 
+        private bool ScheduleReceviveMessagesFromMailboxToTheThreadPool()
+        {
+            if (queue.Count > 0)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.ProcessQueue));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         internal void ProcessQueue(object o)
         {
-            if (0 == Interlocked.Exchange(ref isHandler, 1))
-            {
-                ReceiveMessagesFromMailbox();
-
-                Interlocked.Exchange(ref isHandler, 0);
-
-                if (queue.Count > 0)
-                {
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(this.ProcessQueue));
-                }
-            }
+            Receive(null);
         }
 
 
