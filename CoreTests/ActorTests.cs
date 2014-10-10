@@ -58,8 +58,8 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void StateLessActorsLoadTest()
         {
-            ThreadPool.SetMaxThreads(8, 8);
-            ThreadPool.SetMinThreads(8, 8);
+            ThreadPool.SetMaxThreads(16, 8);
+            ThreadPool.SetMinThreads(16, 8);
 
             StateLessActor actor = new StateLessActor(waitUntilMessagesAreHandled);
 
@@ -84,8 +84,8 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void ActorsLoadTest()
         {
-            ThreadPool.SetMaxThreads(8, 8);
-            ThreadPool.SetMinThreads(8, 8);
+            ThreadPool.SetMaxThreads(16, 8);
+            ThreadPool.SetMinThreads(16, 8);
 
             Actor actor = new MockActor(waitUntilMessagesAreHandled);
 
@@ -110,8 +110,8 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void ThreadPoolLoadTest()
         {
-            ThreadPool.SetMaxThreads(8, 8);
-            ThreadPool.SetMinThreads(8, 8);
+            ThreadPool.SetMaxThreads(16, 8);
+            ThreadPool.SetMinThreads(16, 8);
 
             int counter = 0;
 

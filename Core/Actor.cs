@@ -17,7 +17,7 @@ namespace HWdTech.DS.Core
             {
                 Handle(message);
 
-                ProcessQueueTillCanRead();
+                ReceiveMessagesFromMailbox();
 
                 Interlocked.Exchange(ref isHandler, 0);
 
@@ -33,14 +33,14 @@ namespace HWdTech.DS.Core
             }
             if (0 == Interlocked.Decrement(ref requests))
             {
-                if (taskNotQueued)
+                if (taskNotQueued && queue.Count > 0)
                 {
                     ThreadPool.QueueUserWorkItem(new WaitCallback(this.ProcessQueue));
                 }
             }
         }
 
-        private void ProcessQueueTillCanRead()
+        private void ReceiveMessagesFromMailbox()
         {
             IMessage m;
             while (queue.TryDequeue(out m))
@@ -53,7 +53,7 @@ namespace HWdTech.DS.Core
         {
             if (0 == Interlocked.Exchange(ref isHandler, 1))
             {
-                ProcessQueueTillCanRead();
+                ReceiveMessagesFromMailbox();
 
                 Interlocked.Exchange(ref isHandler, 0);
 
