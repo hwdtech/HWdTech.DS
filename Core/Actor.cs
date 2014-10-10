@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
 
 namespace HWdTech.DS.Core
@@ -8,6 +9,20 @@ namespace HWdTech.DS.Core
         int requests = 0;
         int isHandler = 0;
         ConcurrentQueue<IMessage> queue = new ConcurrentQueue<IMessage>();
+
+        Action<IMessage> handler;
+
+        public Actor()
+        {
+            this.handler = Handle;
+        }
+
+        public void Become(Action<IMessage> handler)
+        {
+            this.handler = handler;
+        }
+
+        public abstract void Handle(IMessage message);
 
         public void Receive(IMessage message)
         {
@@ -22,7 +37,7 @@ namespace HWdTech.DS.Core
                 {
                     try
                     {
-                        Handle(message);
+                        HandleIncoming(message);
 
                         ReceiveMessagesFromMailbox();
                     }
@@ -34,7 +49,7 @@ namespace HWdTech.DS.Core
                 }
                 else
                 {
-                    PutMessageToTheQueue(message);
+                    PutIncomingMessageToTheQueue(message);
                 }
             }
             finally
@@ -49,7 +64,7 @@ namespace HWdTech.DS.Core
             }
         }
 
-        private void PutMessageToTheQueue(IMessage message)
+        private void PutIncomingMessageToTheQueue(IMessage message)
         {
             if (message != null)
             {
@@ -105,6 +120,9 @@ namespace HWdTech.DS.Core
         }
 
 
-        protected abstract void Handle(IMessage message);
+        private void HandleIncoming(IMessage message)
+        {
+            handler(message);
+        }
     }
 }
