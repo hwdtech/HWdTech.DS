@@ -14,31 +14,46 @@ namespace HWdTech.DS.Core
             bool ReceiveMessageFromMailboxTaskNotSchedulled = true;
 
             AcceptRequest();
-            
-            if (CanHandleAMessage())
+
+            try
             {
-                Handle(message);
 
-                ReceiveMessagesFromMailbox();
-
-                FinishMessagesHandling();
-
-                ReceiveMessageFromMailboxTaskNotSchedulled = !ScheduleReceviveMessagesFromMailboxToTheThreadPool();
-            }
-            else
-            {
-                if (message != null)
+                if (CanHandleAMessage())
                 {
-                    queue.Enqueue(message);
+                    try
+                    {
+                        Handle(message);
+
+                        ReceiveMessagesFromMailbox();
+                    }
+                    finally
+                    {
+                        FinishMessagesHandling();
+                        ReceiveMessageFromMailboxTaskNotSchedulled = !ScheduleReceviveMessagesFromMailboxToTheThreadPool();
+                    }
+                }
+                else
+                {
+                    PutMessageToTheQueue(message);
                 }
             }
-
-            if (IsLastRequest())
+            finally
             {
-                if (ReceiveMessageFromMailboxTaskNotSchedulled)
+                if (IsLastRequest())
                 {
-                    ScheduleReceviveMessagesFromMailboxToTheThreadPool();
+                    if (ReceiveMessageFromMailboxTaskNotSchedulled)
+                    {
+                        ScheduleReceviveMessagesFromMailboxToTheThreadPool();
+                    }
                 }
+            }
+        }
+
+        private void PutMessageToTheQueue(IMessage message)
+        {
+            if (message != null)
+            {
+                queue.Enqueue(message);
             }
         }
 
