@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internals", "Internals\Internals.csproj", "{AAC627DB-3B2A-46D9-82B4-0F12D104C005}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadPoolImpl", "ThreadPoolImpl\ThreadPoolImpl.csproj", "{47201844-9B00-4040-8715-7F58701A421C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadPoolImplTests", "ThreadPoolImplTests\ThreadPoolImplTests.csproj", "{0993919D-1469-4233-BC38-D969F6AE365B}"
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AAC627DB-3B2A-46D9-82B4-0F12D104C005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAC627DB-3B2A-46D9-82B4-0F12D104C005}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAC627DB-3B2A-46D9-82B4-0F12D104C005}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAC627DB-3B2A-46D9-82B4-0F12D104C005}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47201844-9B00-4040-8715-7F58701A421C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47201844-9B00-4040-8715-7F58701A421C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47201844-9B00-4040-8715-7F58701A421C}.Release|Any CPU.ActiveCfg = Release|Any CPU
