@@ -10,12 +10,72 @@ namespace HWdTech.DS.Core.Tests
     public class ActorTests
     {
         MockRepository repository = new MockRepository(MockBehavior.Strict);
+        
+        IMessage message;
+
+        [SetUp]
+        public void SetUp()
+        {
+            ThreadPool.SetMaxThreads(16, 8);
+            ThreadPool.SetMinThreads(16, 8);
+
+            Mock<IMessage> messageMock = repository.Create<IMessage>();
+            message = messageMock.Object;
+        }
+
+
+        [Test]
+        public void AnActorShouldHandleAMessage()
+        {
+            Mock<Actor> actor = repository.Create<Actor>();
+
+            actor.Setup(a => a.Handle(message)).Verifiable();
+
+            actor.Object.Receive(message);
+
+            actor.VerifyAll();
+        }
+
+        class MockActorForCheckBecomeMethod : Actor
+        {
+            bool calledFirstBehaviour = false;
+            int calledSecondBehaviour = 0;
+
+            public override void Handle(IMessage message)
+            {
+                calledFirstBehaviour = true;
+                Become(SecondHandle);
+            }
+
+            public void SecondHandle(IMessage message)
+            {
+                ++calledSecondBehaviour;
+            }
+
+            public void VerifyAll()
+            {
+                Assert.True(calledFirstBehaviour);
+                Assert.AreEqual(2, calledSecondBehaviour);
+            }
+        }
+
+        [Test]
+        public void AnActorShouldChangeItsBehaviourUsingBecome()
+        {
+            MockActorForCheckBecomeMethod actor = new MockActorForCheckBecomeMethod();
+
+            actor.Receive(message);
+            actor.Receive(message);
+            actor.Receive(message);
+
+            actor.VerifyAll();
+        }
 
         ManualResetEvent waitUntilMessagesAreHandled = new ManualResetEvent(false);
 
-        const int total = 1000000;
+        const int total = 100000;
 
-        class MockActor : Actor
+        class MockActor: Actor
         {
             ManualResetEvent signal;
 
@@ -26,7 +86,7 @@ namespace HWdTech.DS.Core.Tests
 
             int counter = 0;
 
-            protected override void Handle(IMessage m)
+            public override void Handle(IMessage m)
             {
                 if (Interlocked.Increment(ref counter) == total)
                 {
@@ -58,13 +118,7 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void StateLessActorsLoadTest()
         {
-            ThreadPool.SetMaxThreads(16, 8);
-            ThreadPool.SetMinThreads(16, 8);
-
             StateLessActor actor = new StateLessActor(waitUntilMessagesAreHandled);
-
-            Mock<IMessage> messageMock = repository.Create<IMessage>();
-            IMessage message = messageMock.Object;
 
             DateTime start = DateTime.Now;
 
@@ -84,13 +138,7 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void ActorsLoadTest()
         {
-            ThreadPool.SetMaxThreads(16, 8);
-            ThreadPool.SetMinThreads(16, 8);
-
             Actor actor = new MockActor(waitUntilMessagesAreHandled);
-
-            Mock<IMessage> messageMock = repository.Create<IMessage>();
-            IMessage message = messageMock.Object;
 
             DateTime start = DateTime.Now;
 
@@ -110,9 +158,6 @@ namespace HWdTech.DS.Core.Tests
         [Test]
         public void ThreadPoolLoadTest()
         {
-            ThreadPool.SetMaxThreads(16, 8);
-            ThreadPool.SetMinThreads(16, 8);
-
             int counter = 0;
 
             DateTime start = DateTime.Now;
