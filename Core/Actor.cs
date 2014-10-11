@@ -12,6 +12,13 @@ namespace HWdTech.DS.Core
 
         Action<IMessage> handler;
 
+        public Actor(string address)
+        {
+            this.handler = Handle;
+
+            MessageBus.Join(address, this);
+        }
+
         public Actor()
         {
             this.handler = Handle;

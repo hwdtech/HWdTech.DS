@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouterImplTests", "RouterIm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTests", "CoreTests\CoreTests.csproj", "{A00658C0-0B6E-44E0-AF38-B120B9E13749}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{A00658C0-0B6E-44E0-AF38-B120B9E13749}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A00658C0-0B6E-44E0-AF38-B120B9E13749}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A00658C0-0B6E-44E0-AF38-B120B9E13749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
