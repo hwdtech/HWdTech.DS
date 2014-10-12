@@ -10,9 +10,14 @@ namespace HWdTech.Common
     {
         IContainer container;
 
-        public DIContainer(IContainer container)
+        public DIContainer()
         {
-            this.container = container;
+            ContainerBuilder builder = new ContainerBuilder();
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            builder.RegisterAssemblyModules(assemblies);
+            this.container = builder.Build();
+
+            AppDomain.CurrentDomain.AssemblyLoad += AssemblyLoadEventHandler;
         }
 
         public T Resolve<T>()
@@ -22,13 +27,19 @@ namespace HWdTech.Common
 
         public static void Init()
         {
+            Singleton<DIContainer>.Instance = new DIContainer();            
+        }
+
+        private void AssemblyLoadEventHandler(object sender, AssemblyLoadEventArgs args)
+        {
+            LoadAssembly(args.LoadedAssembly);
+        }
+
+        private void LoadAssembly(Assembly assembly)
+        {
             ContainerBuilder builder = new ContainerBuilder();
-
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            builder.RegisterAssemblyModules(assemblies);
-
-            Singleton<DIContainer>.Instance = new DIContainer(builder.Build());
+            builder.RegisterAssemblyModules(assembly);
+            builder.Update(container);
         }
     }
 }
