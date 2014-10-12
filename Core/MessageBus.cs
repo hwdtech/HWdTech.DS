@@ -8,21 +8,26 @@ namespace HWdTech.DS.Core
     public class MessageBus
     {
         static IRouter router;
+        static IThreadPool threadPool;
 
         public static void Send(IMessage message)
         {
-            if (null == router)
+            if (null == threadPool)
             {
-                router = Singleton<DIContainer>.Instance.Resolve<IRouter>();
+                threadPool = Singleton<DIContainer>.Instance.Resolve<IThreadPool>();
             }
 
-            ThreadPool.QueueUserWorkItem(HandleMessage, message);
-
+            threadPool.StartTask(HandleMessage, message);
         }
 
         static void HandleMessage(object o)
         {
             IMessage message = (IMessage) o;
+
+            if (null == router)
+            {
+                router = Singleton<DIContainer>.Instance.Resolve<IRouter>();
+            }
 
             router.Send(message);
         }
