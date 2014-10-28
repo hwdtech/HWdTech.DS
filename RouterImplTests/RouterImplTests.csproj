@@ -62,10 +62,6 @@
       <Project>{3D3A1029-75D7-4F42-905B-8D81ECEB8520}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Internals\Internals.csproj">
-      <Project>{AAC627DB-3B2A-46D9-82B4-0F12D104C005}</Project>
-      <Name>Internals</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RouterImpl\RouterImpl.csproj">
       <Project>{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}</Project>
       <Name>RouterImpl</Name>

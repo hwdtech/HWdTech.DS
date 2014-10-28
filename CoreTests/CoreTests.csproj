@@ -48,15 +48,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActorTests.cs" />
+    <Compile Include="MessageBusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{6A2CC57C-1EFD-40E1-B2BE-79F35EACCB85}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{3D3A1029-75D7-4F42-905B-8D81ECEB8520}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RouterImpl\RouterImpl.csproj">
+      <Project>{1F23541E-F7B9-41AF-A5B8-406AA8ABB21F}</Project>
+      <Name>RouterImpl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ThreadPoolImpl\ThreadPoolImpl.csproj">
+      <Project>{47201844-9B00-4040-8715-7F58701A421C}</Project>
+      <Name>ThreadPoolImpl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
